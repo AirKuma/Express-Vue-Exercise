@@ -6,8 +6,8 @@ var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth');
+// var usersRouter = require('./routes/users');
+// var authRouter = require('./routes/auth');
 var apiRouter = require('./routes/api/users');
 
 //mongo
@@ -41,9 +41,9 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/', apiRouter);
-app.use('/user', usersRouter);
-app.use('/auth', authRouter);
+app.use('/user', apiRouter);
+// app.use('/user', usersRouter);
+// app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

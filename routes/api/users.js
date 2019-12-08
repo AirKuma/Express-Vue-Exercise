@@ -4,23 +4,7 @@ var router = express.Router();
 const mongoose = require('mongoose');
 const UserModel = require('../../mongo/model/UserModel');
 
-/* GET users listing. */
-router.get("/users", (req, res, next) => {
-  UserModel.find()
-    .exec()
-    .then(docs => {
-      console.log(docs);
-      res.json(docs);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
-
-router.post("/user",(req, res, next) => {
+router.post("/",(req, res, next) => {
   const user = new UserModel({
     account: req.body.account,
     date: new Date()
@@ -42,7 +26,7 @@ router.post("/user",(req, res, next) => {
 });
 
 
-router.get("/user/:userId", (req, res, next) => {
+router.get("/:userId", (req, res, next) => {
   const id = req.params.userId;
   UserModel.findById(id)
     .exec()
@@ -63,7 +47,7 @@ router.get("/user/:userId", (req, res, next) => {
     });
 });
 
-router.put("/user/:userId", (req, res, next) => {
+router.put("/:userId", (req, res, next) => {
   const id = req.params.userId;
   const updateOps = {};
   let formData = req.body;
@@ -82,7 +66,7 @@ router.put("/user/:userId", (req, res, next) => {
     });
 });
 
-router.delete('/user/:userId', (req, res, next) => {
+router.delete('/:userId', (req, res, next) => {
   UserModel.remove({ _id: req.params.userId}).then((result) => {
       res.send('User deleted!')
     })

@@ -13,7 +13,9 @@ const UserModel = require('../mongo/model/UserModel');
 
 router.route('/login')
   .get(function (req, res) {
-    res.render('auth/login');
+    res.render('auth/login', {
+      title : "login"
+    });
   })
   .post(function (req, res) {
     const user = new UserModel({
@@ -34,33 +36,7 @@ router.route('/login')
           error: err
         });
       });
-    res.redirect("/auth/users")
+    res.redirect("/user/users")
   });
-
-router.get("/users", (req, res, next) => {
-  UserModel.find()
-    .exec()
-    .then(docs => {
-      console.log(docs);
-      res.render('list/list', {
-        drinks: docs,
-        title : "user list"
-      });
-      // res.status(200).json(docs);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-
-  // var drinks = [
-  //   {name: 'Bloody Mary', drunkness: 3},
-  //   {name: 'Martini', drunkness: 5},
-  //   {name: 'Scotch', drunkness: 10}
-  // ];
-
-});
 
 module.exports = router;

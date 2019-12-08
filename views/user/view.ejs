@@ -1,0 +1,22 @@
+<form id="userData" method="post" action="/user/<%= user._id %>" >
+  Account:<br>
+  <input type="text" id="account" name="account" value="<%= user.account %>"><br>
+  <input id="userUpdate" type="button" value="Submit">
+</form>
+
+<script>
+  $(document).ready(function(){
+    $("#userUpdate").click(function(){
+      $.ajax({
+        url: '/user/<%= user._id %>',
+        type: "POST",
+        data: $("#userData").serialize(),
+        success: function(response){
+          console.log(response);
+          alert(response);
+          location.reload();
+        }
+      });
+    });
+  });
+</script>
